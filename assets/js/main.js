@@ -3,11 +3,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     const header = document.querySelector('.main-header');
+    let lastScroll = 0;
 
+    // Handle mobile menu toggle
     mobileMenuToggle?.addEventListener('click', () => {
         mobileMenuToggle.classList.toggle('active');
         navLinks?.classList.toggle('active');
         document.body.classList.toggle('menu-open');
+        
+        // Prevent scrolling when menu is open
+        if (document.body.classList.contains('menu-open')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
         
         // Animate menu items
         const menuItems = navLinks?.querySelectorAll('li');
@@ -20,6 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Close menu when clicking a link
+    navLinks?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenuToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            document.body.style.overflow = '';
+        });
+    });
+
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.nav-container') && navLinks?.classList.contains('active')) {
@@ -27,20 +46,55 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.remove('menu-open');
         }
     });
+
+    // Handle header visibility on scroll
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll <= 0) {
+            header.classList.remove('scrolled');
+            return;
+        }
+        
+        if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
+            // Scrolling down
+            header.classList.add('scroll-down');
+            header.classList.remove('scroll-up');
+        } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
+            // Scrolling up
+            header.classList.remove('scroll-down');
+            header.classList.add('scroll-up');
+        }
+
+        header.classList.add('scrolled');
+        lastScroll = currentScroll;
+    });
+
+    // Initialize hero slider
+    const sliderContainer = document.querySelector('.hero-slider');
+    if (sliderContainer) {
+        new ImageSlider(sliderContainer);
+    }
 });
 
 // Hero Slider
 class ImageSlider {
-    constructor(container, images, interval = 5000) {
+    constructor(container) {
         this.container = container;
-        this.images = images;
-        this.interval = interval;
+        this.images = [
+            'assets/images/hero section.jpeg',
+            'assets/images/Event img.jpeg'
+        ];
         this.currentIndex = 0;
-        this.isTransitioning = false;
+        this.interval = 5000; // 5 seconds per slide
         this.init();
     }
 
     init() {
+        // Clear container
+        this.container.innerHTML = '';
+        
+        // Create slides
         this.images.forEach((image, index) => {
             const slide = document.createElement('div');
             slide.className = `slide ${index === 0 ? 'active' : ''}`;
@@ -48,74 +102,48 @@ class ImageSlider {
             this.container.appendChild(slide);
         });
 
-        // Create navigation dots
+        // Create dots
         const dotsContainer = document.createElement('div');
-        dotsContainer.className = 'slider-dots';
+        dotsContainer.className = 'slider-controls';
+        
         this.images.forEach((_, index) => {
             const dot = document.createElement('button');
             dot.className = `slider-dot ${index === 0 ? 'active' : ''}`;
+            dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
             dot.addEventListener('click', () => this.goToSlide(index));
             dotsContainer.appendChild(dot);
         });
+        
         this.container.appendChild(dotsContainer);
-
+        
         // Start automatic sliding
         this.startAutoSlide();
-
-        // Pause on hover
-        this.container.addEventListener('mouseenter', () => this.pauseAutoSlide());
-        this.container.addEventListener('mouseleave', () => this.startAutoSlide());
-    }
-
-    startAutoSlide() {
-        if (!this.intervalId) {
-            this.intervalId = setInterval(() => this.nextSlide(), this.interval);
-        }
-    }
-
-    pauseAutoSlide() {
-        if (this.intervalId) {
-            clearInterval(this.intervalId);
-            this.intervalId = null;
-        }
     }
 
     goToSlide(index) {
-        if (this.isTransitioning || index === this.currentIndex) return;
+        if (index === this.currentIndex) return;
         
-        this.isTransitioning = true;
+        // Update slides
         const slides = this.container.querySelectorAll('.slide');
-        const dots = this.container.querySelectorAll('.slider-dot');
-        
         slides[this.currentIndex].classList.remove('active');
+        slides[index].classList.add('active');
+        
+        // Update dots
+        const dots = this.container.querySelectorAll('.slider-dot');
         dots[this.currentIndex].classList.remove('active');
+        dots[index].classList.add('active');
         
         this.currentIndex = index;
-        
-        slides[this.currentIndex].classList.add('active');
-        dots[this.currentIndex].classList.add('active');
-        
-        setTimeout(() => {
-            this.isTransitioning = false;
-        }, 1000);
     }
 
     nextSlide() {
-        this.goToSlide((this.currentIndex + 1) % this.images.length);
+        const nextIndex = (this.currentIndex + 1) % this.images.length;
+        this.goToSlide(nextIndex);
     }
-}
 
-// Initialize slider when images are available
-const heroSlider = document.querySelector('.hero-slider');
-if (heroSlider) {
-    new ImageSlider(heroSlider, [
-        'assets/images/hero section.jpeg',
-        'assets/images/coporate event.jpeg',
-        'assets/images/blak and white img.jpeg',
-        'assets/images/husband and wife- flora backdrop.jpeg',
-        'assets/images/Event img.jpeg',
-        'assets/images/event-photo-booths-1024x683.jpg'
-    ]);
+    startAutoSlide() {
+        setInterval(() => this.nextSlide(), this.interval);
+    }
 }
 
 // Smooth Scroll

@@ -3,101 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore PSL3 Productions' tailored photo booth packages for every celebration.">
-    <title>Services - PSL3 Productions</title>
+    <meta name="description" content="Explore PSL3 Productions' premium photo booth experiences for weddings, corporate events, and special occasions">
+    <title>Our Services - PSL3 Productions | Premium Photo Booth Experiences</title>
+    <link rel="icon" type="image/jpeg" href="../assets/images/Logo.jpeg">
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <header class="main-header">
+<body>    <header class="main-header">
         <nav class="nav-container">
             <div class="logo">
-                <a href="../index.html">PSL3 Productions</a>
+                <a href="../index.html">
+                    <img src="../assets/images/Logo.jpeg" alt="PSL3 Productions Logo" class="logo-img">
+                </a>
             </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="../index.html">Home</a></li>
                 <li><a href="services.html" class="active">Services</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="booking.html">Inquire Today</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li class="cta-button"><a href="booking.html" class="btn-primary">Book Now</a></li>
             </ul>
         </nav>
-    </header>
-
-    <main>
-        <section class="page-intro">
-            <h1>📸 Photo Booth Packages That Fit Every Celebration</h1>
-            <p>We offer tailored photo booth rentals designed to elevate any event — from small parties to luxury galas.</p>
+    </header>    <main>
+        <!-- Hero Section -->
+        <section class="service-hero">
+            <div class="service-hero-content">
+                <h1>Premium Photo Booth Experiences</h1>
+                <p>Create unforgettable memories with our state-of-the-art photo booths, perfect for any occasion</p>
+            </div>
         </section>
 
-        <section class="why-choose-us">
-            <h2>Why Choose Our Services</h2>
-            <div class="features-grid">
-                <div class="feature">
-                    <i class="icon-flexible"></i>
-                    <h3>Flexible Packages</h3>
-                    <p>Choose from a variety of packages to suit your event size and style.</p>
-                </div>
-                <div class="feature">
-                    <i class="icon-branding"></i>
-                    <h3>Custom Branding</h3>
-                    <p>Personalize your photo booth experience with branded templates and overlays.</p>
-                </div>
-                <div class="feature">
-                    <i class="icon-setup"></i>
-                    <h3>Fully Managed Setup</h3>
-                    <p>Our team handles everything from delivery to setup and takedown.</p>
+        <!-- Events We Cater Section -->
+        <section class="events-we-cater">
+            <div class="container">
+                <h2>Events We Cater To</h2>
+                <p class="section-subtitle">Perfect for Any Occasion</p>
+                <div class="events-grid">
+                    <div class="event-card weddings">
+                        <div class="event-overlay"></div>
+                        <div class="event-content">
+                            <i class="fas fa-heart"></i>
+                            <h3>Weddings</h3>
+                            <p>Make your special day even more memorable with our elegant photo booth setups.</p>
+                        </div>
+                    </div>
+                    <div class="event-card corporate">
+                        <div class="event-overlay"></div>
+                        <div class="event-content">
+                            <i class="fas fa-building"></i>
+                            <h3>Corporate Events</h3>
+                            <p>Brand-aligned experiences for your company gatherings and celebrations.</p>
+                        </div>
+                    </div>
+                    <div class="event-card birthdays">
+                        <div class="event-overlay"></div>
+                        <div class="event-content">
+                            <i class="fas fa-birthday-cake"></i>
+                            <h3>Birthdays</h3>
+                            <p>Capture the joy and laughter at your birthday celebration.</p>
+                        </div>
+                    </div>
+                    <div class="event-card graduations">
+                        <div class="event-overlay"></div>
+                        <div class="event-content">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h3>Graduations</h3>
+                            <p>Celebrate academic achievements with fun photo memories.</p>
+                        </div>
+                    </div>
+                    <div class="event-card proms">
+                        <div class="event-overlay"></div>
+                        <div class="event-content">
+                            <i class="fas fa-star"></i>
+                            <h3>Proms</h3>
+                            <p>Create lasting memories of this special night.</p>
+                        </div>
+                    </div>
+                    <div class="event-card festivals">
+                        <div class="event-overlay"></div>
+                        <div class="event-content">
+                            <i class="fas fa-music"></i>
+                            <h3>Festivals</h3>
+                            <p>Bring extra excitement to your festival or public event.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="service-packages">
-            <h2>Our Packages</h2>
-            <div class="packages-grid">
-                <div class="package">
-                    <h3>🟡 Classic Package</h3>
-                    <p>2 hours, open-air booth, instant prints, standard backdrop</p>
-                    <p><strong>💰 Starting at $299</strong></p>
-                </div>
-                <div class="package">
-                    <h3>🔵 Premium Package</h3>
-                    <p>3 hours, themed props, digital gallery, scrapbook service</p>
-                    <p><strong>💰 Starting at $399</strong></p>
-                </div>
-                <div class="package">
-                    <h3>🟢 Corporate Package</h3>
-                    <p>4 hours, custom templates, branded overlays, GIF station</p>
-                    <p><strong>💰 Starting at $499</strong></p>
-                </div>
-                <div class="package">
-                    <h3>🔴 VIP Experience</h3>
-                    <p>5 hours, 360° booth, red carpet, spark effects, dedicated tech</p>
-                    <p><strong>💰 Starting at $699</strong></p>
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2>Why Choose PSL3 Productions</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-camera-retro"></i>
+                        <h3>Latest Technology</h3>
+                        <p>State-of-the-art equipment for crystal-clear photos and videos</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-user-tie"></i>
+                        <h3>Professional Staff</h3>
+                        <p>Dedicated attendants to ensure smooth operation</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-paint-brush"></i>
+                        <h3>Custom Designs</h3>
+                        <p>Personalized templates and branded overlays</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-share-alt"></i>
+                        <h3>Instant Sharing</h3>
+                        <p>Direct social media uploads and digital galleries</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="add-ons">
-            <h2>Add-Ons</h2>
-            <ul>
-                <li>🎞️ Boomerang Video Feature</li>
-                <li>🔥 Cold Spark Machines</li>
-                <li>🕒 Extra Time</li>
-                <li>🖼️ Custom Digital Props (up to 4)</li>
-                <li>🎉 Fog Machine</li>
-                <li>💡 Additional Lighting</li>
-            </ul>
+        <!-- Packages Section -->
+        <section class="packages-section">
+            <div class="container">
+                <h2>Our Premium Packages</h2>
+                <p class="section-subtitle">Choose the perfect package for your special event</p>
+                
+                <div class="packages-grid">
+                    <div class="package-card">
+                        <div class="package-header">
+                            <h3>Classic Experience</h3>
+                            <p class="price">Starting at $299</p>
+                        </div>
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i> 2 Hours of Service</li>
+                            <li><i class="fas fa-check"></i> Open-Air Photo Booth</li>
+                            <li><i class="fas fa-check"></i> Standard Backdrop</li>
+                            <li><i class="fas fa-check"></i> Unlimited Prints</li>
+                            <li><i class="fas fa-check"></i> Basic Props Package</li>
+                            <li><i class="fas fa-check"></i> Digital Gallery</li>
+                        </ul>
+                        <a href="booking.html" class="btn-secondary">Book Now</a>
+                    </div>
+
+                    <div class="package-card featured">
+                        <div class="featured-tag">Most Popular</div>
+                        <div class="package-header">
+                            <h3>Premium Experience</h3>
+                            <p class="price">Starting at $399</p>
+                        </div>
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i> 3 Hours of Service</li>
+                            <li><i class="fas fa-check"></i> 360° Photo Booth</li>
+                            <li><i class="fas fa-check"></i> Custom Backdrop</li>
+                            <li><i class="fas fa-check"></i> Unlimited Prints</li>
+                            <li><i class="fas fa-check"></i> Deluxe Props Package</li>
+                            <li><i class="fas fa-check"></i> Digital Gallery</li>
+                            <li><i class="fas fa-check"></i> Boomerang Videos</li>
+                            <li><i class="fas fa-check"></i> Social Media Sharing</li>
+                        </ul>
+                        <a href="booking.html" class="btn-primary">Book Now</a>
+                    </div>
+
+                    <div class="package-card">
+                        <div class="package-header">
+                            <h3>Luxury Experience</h3>
+                            <p class="price">Starting at $699</p>
+                        </div>
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i> 5 Hours of Service</li>
+                            <li><i class="fas fa-check"></i> 360° Booth + Standard Booth</li>
+                            <li><i class="fas fa-check"></i> Multiple Backdrop Options</li>
+                            <li><i class="fas fa-check"></i> Unlimited Prints</li>
+                            <li><i class="fas fa-check"></i> Premium Props</li>
+                            <li><i class="fas fa-check"></i> Cold Spark Effects</li>
+                            <li><i class="fas fa-check"></i> Guest Book</li>
+                            <li><i class="fas fa-check"></i> VIP Attendant</li>
+                        </ul>
+                        <a href="booking.html" class="btn-secondary">Book Now</a>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section class="cta">
-            <h2>🎯 Packages for Every Vibe and Budget</h2>
-            <a href="booking.html" class="btn-primary">🚀 Book My Booth</a>
+        <!-- Add-Ons Section -->
+        <section class="add-ons-section">
+            <div class="container">
+                <h2>Enhance Your Experience</h2>
+                <p class="section-subtitle">Customize your package with our premium add-ons</p>
+                
+                <div class="add-ons-grid">
+                    <div class="add-on-card">
+                        <i class="fas fa-video"></i>
+                        <h3>Boomerang Videos</h3>
+                        <p>Add fun, looping videos to your package</p>
+                    </div>
+                    <div class="add-on-card">
+                        <i class="fas fa-sparkles"></i>
+                        <h3>Cold Spark Effects</h3>
+                        <p>Create magical moments with spark fountains</p>
+                    </div>
+                    <div class="add-on-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Extended Hours</h3>
+                        <p>Add more time to keep the fun going</p>
+                    </div>
+                    <div class="add-on-card">
+                        <i class="fas fa-book"></i>
+                        <h3>Guest Book</h3>
+                        <p>Custom memory book with guest messages</p>
+                    </div>
+                    <div class="add-on-card">
+                        <i class="fas fa-cloud"></i>
+                        <h3>Fog Machine</h3>
+                        <p>Add atmosphere to your photos</p>
+                    </div>
+                    <div class="add-on-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Premium Lighting</h3>
+                        <p>Professional lighting setup</p>
+                    </div>
+                </div>
+            </div>
+        </section>        <!-- Backdrop Gallery -->
+        <section class="backdrop-gallery">
+            <div class="container">
+                <h2>Our Backdrop Collection</h2>
+                <p class="section-subtitle">Choose from our premium selection of stunning backdrops</p>
+                
+                <div class="backdrop-grid">
+                    <div class="backdrop-item">
+                        <img src="../assets/images/Backdrops/1729700A-4377-4770-B54C-0F7F7AE36E8A.png" alt="Elegant Floral Backdrop">
+                        <div class="backdrop-overlay">
+                            <h4>Elegant Floral</h4>
+                            <p>Perfect for weddings and formal events</p>
+                        </div>
+                    </div>
+                    <div class="backdrop-item">
+                        <img src="../assets/images/Backdrops/2E045528-F302-4ED0-9E42-3D435DAEBD08.png" alt="Modern Geometric Backdrop">
+                        <div class="backdrop-overlay">
+                            <h4>Modern Geometric</h4>
+                            <p>Ideal for corporate events</p>
+                        </div>
+                    </div>
+                    <div class="backdrop-item">
+                        <img src="../assets/images/Backdrops/81021614-0BFF-414A-BD35-4E4BA9AAE576.png" alt="Luxury Gold Backdrop">
+                        <div class="backdrop-overlay">
+                            <h4>Luxury Gold</h4>
+                            <p>Adds glamour to any celebration</p>
+                        </div>
+                    </div>
+                    <div class="backdrop-item">
+                        <img src="../assets/images/Backdrops/A2EAEB9B-C060-4C2B-A0BE-694808928301.png" alt="Textured Pattern Backdrop">
+                        <div class="backdrop-overlay">
+                            <h4>Textured Pattern</h4>
+                            <p>Versatile for any occasion</p>
+                        </div>
+                    </div>
+                    <div class="backdrop-item">
+                        <img src="../assets/images/Backdrops/3391F42E-C70F-4334-8B53-CF444A59F315.png" alt="Bohemian Style Backdrop">
+                        <div class="backdrop-overlay">
+                            <h4>Bohemian Style</h4>
+                            <p>Perfect for artistic events</p>
+                        </div>
+                    </div>
+                    <div class="backdrop-item">
+                        <img src="../assets/images/Backdrops/6352F8EC-2C50-4718-9BB2-33B62FA55A04.png" alt="Classic Elegant Backdrop">
+                        <div class="backdrop-overlay">
+                            <h4>Classic Elegant</h4>
+                            <p>Timeless sophistication</p>
+                        </div>
+                    </div>
+                    <div class="backdrop-item">
+                        <img src="../assets/images/Backdrops/7F704726-751A-4EF6-B42A-1306BC097BCE.png" alt="Contemporary Abstract Backdrop">
+                        <div class="backdrop-overlay">
+                            <h4>Contemporary Abstract</h4>
+                            <p>Modern and stylish</p>
+                        </div>
+                    </div>
+                    <div class="backdrop-item">
+                        <img src="../assets/images/Backdrops/8CBBF41F-E377-4F58-98AC-061099AA8FCB.png" alt="Luxury Pattern Backdrop">
+                        <div class="backdrop-overlay">
+                            <h4>Luxury Pattern</h4>
+                            <p>Elegant and sophisticated</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Make Your Event Unforgettable?</h2>
+                <p>Let's create memories that will last a lifetime. Book your premium photo booth experience today!</p>
+                <div class="cta-buttons">
+                    <a href="booking.html" class="btn-primary">📸 Book Your Experience</a>
+                    <a href="contact.html" class="btn-secondary">💬 Let's Talk</a>
+                </div>
+            </div>
         </section>
-    </main>
-
-    <footer class="main-footer">
+    </main>    <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-links">
                 <h4>Quick Links</h4>
@@ -112,20 +322,22 @@
             <div class="footer-social">
                 <h4>Connect With Us</h4>
                 <div class="social-icons">
-                    <a href="#" aria-label="Instagram"><i class="icon-instagram"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="icon-facebook"></i></a>
-                    <a href="#" aria-label="TikTok"><i class="icon-tiktok"></i></a>
+                    <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-icon" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
             <div class="footer-contact">
                 <h4>Contact Us</h4>
-                <p>Email: hello@psl3productions.com</p>
-                <p>Phone: (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> hello@psl3productions.com</p>
+                <p><i class="fas fa-phone"></i> (555) 123-4567</p>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2025 PSL3 Productions. All rights reserved.</p>
         </div>
     </footer>
+    
+    <script src="../assets/js/main.js"></script>
 </body>
 </html>
