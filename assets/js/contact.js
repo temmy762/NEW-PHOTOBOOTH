@@ -151,8 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
             input.dataset.validating = 'true';
             validateInput(input);
         });
-        
-        input.addEventListener('input', () => {
+          input.addEventListener('input', () => {
             if (input.dataset.validating === 'true') {
                 validateInput(input);
             }
@@ -164,6 +163,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 inputGroup.classList.remove('has-value');
             }
         });
+        
+        // Special handling for date input to ensure labels work correctly
+        if (input.type === 'date') {
+            input.addEventListener('change', () => {
+                const inputGroup = input.closest('.input-group');
+                if (input.value) {
+                    inputGroup.classList.add('has-value');
+                }
+            });
+        }
     });
 
     contactForm.addEventListener('submit', async (e) => {

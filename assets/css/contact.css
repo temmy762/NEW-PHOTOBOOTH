@@ -212,27 +212,8 @@ input[type="date"]:valid {
     color: #333;
 }
 
-.date-label {
-    transform: translateY(-1.5rem);
-    font-size: 0.85rem !important;
-    color: #000 !important;
-}
-
 /* Date input styling improvements */
-.date-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.date-group .date-label {
-    position: static;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #333;
-}
-
-.date-group input[type="date"] {
+input[type="date"] {
     padding: 1rem;
     border: 2px solid #eee;
     border-radius: 12px;
@@ -242,22 +223,33 @@ input[type="date"]:valid {
     color: #333;
 }
 
-.date-group input[type="date"]:focus {
+input[type="date"]:focus {
     outline: none;
     border-color: #000;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
+/* Special handling for date field labels */
+.input-group.floating input[type="date"] + label {
+    transform: translateY(-1.7rem) scale(0.85);
+    background-color: white;
+    padding: 0 0.5rem;
+    color: #000;
+    font-weight: 500;
+}
+
 .date-hint {
+    display: block;
     margin-top: 0.5rem;
     font-size: 0.8rem;
     color: #666;
     font-style: italic;
+    padding-left: 0.5rem;
 }
 
 /* Calendar icon styling */
-.date-group input[type="date"]::-webkit-calendar-picker-indicator {
+input[type="date"]::-webkit-calendar-picker-indicator {
     background-color: transparent;
     color: #333;
     cursor: pointer;
@@ -265,7 +257,7 @@ input[type="date"]:valid {
     border-radius: 4px;
 }
 
-.date-group input[type="date"]::-webkit-calendar-picker-indicator:hover {
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
