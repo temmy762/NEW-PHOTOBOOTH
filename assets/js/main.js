@@ -2,10 +2,22 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navLinks = document.querySelector('.nav-links');
+    const header = document.querySelector('.main-header');
 
     mobileMenuToggle?.addEventListener('click', () => {
+        mobileMenuToggle.classList.toggle('active');
         navLinks?.classList.toggle('active');
         document.body.classList.toggle('menu-open');
+        
+        // Animate menu items
+        const menuItems = navLinks?.querySelectorAll('li');
+        menuItems?.forEach((item, index) => {
+            if (navLinks.classList.contains('active')) {
+                item.style.animation = `slideIn 0.3s ease forwards ${index * 0.1}s`;
+            } else {
+                item.style.animation = '';
+            }
+        });
     });
 
     // Close menu when clicking outside
@@ -24,6 +36,7 @@ class ImageSlider {
         this.images = images;
         this.interval = interval;
         this.currentIndex = 0;
+        this.isTransitioning = false;
         this.init();
     }
 
@@ -35,14 +48,60 @@ class ImageSlider {
             this.container.appendChild(slide);
         });
 
-        setInterval(() => this.nextSlide(), this.interval);
+        // Create navigation dots
+        const dotsContainer = document.createElement('div');
+        dotsContainer.className = 'slider-dots';
+        this.images.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.className = `slider-dot ${index === 0 ? 'active' : ''}`;
+            dot.addEventListener('click', () => this.goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+        this.container.appendChild(dotsContainer);
+
+        // Start automatic sliding
+        this.startAutoSlide();
+
+        // Pause on hover
+        this.container.addEventListener('mouseenter', () => this.pauseAutoSlide());
+        this.container.addEventListener('mouseleave', () => this.startAutoSlide());
+    }
+
+    startAutoSlide() {
+        if (!this.intervalId) {
+            this.intervalId = setInterval(() => this.nextSlide(), this.interval);
+        }
+    }
+
+    pauseAutoSlide() {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+        }
+    }
+
+    goToSlide(index) {
+        if (this.isTransitioning || index === this.currentIndex) return;
+        
+        this.isTransitioning = true;
+        const slides = this.container.querySelectorAll('.slide');
+        const dots = this.container.querySelectorAll('.slider-dot');
+        
+        slides[this.currentIndex].classList.remove('active');
+        dots[this.currentIndex].classList.remove('active');
+        
+        this.currentIndex = index;
+        
+        slides[this.currentIndex].classList.add('active');
+        dots[this.currentIndex].classList.add('active');
+        
+        setTimeout(() => {
+            this.isTransitioning = false;
+        }, 1000);
     }
 
     nextSlide() {
-        const slides = this.container.querySelectorAll('.slide');
-        slides[this.currentIndex].classList.remove('active');
-        this.currentIndex = (this.currentIndex + 1) % slides.length;
-        slides[this.currentIndex].classList.add('active');
+        this.goToSlide((this.currentIndex + 1) % this.images.length);
     }
 }
 
@@ -50,9 +109,12 @@ class ImageSlider {
 const heroSlider = document.querySelector('.hero-slider');
 if (heroSlider) {
     new ImageSlider(heroSlider, [
-        'assets/images/slider/slide1.jpg',
-        'assets/images/slider/slide2.jpg',
-        'assets/images/slider/slide3.jpg'
+        'assets/images/hero section.jpeg',
+        'assets/images/coporate event.jpeg',
+        'assets/images/blak and white img.jpeg',
+        'assets/images/husband and wife- flora backdrop.jpeg',
+        'assets/images/Event img.jpeg',
+        'assets/images/event-photo-booths-1024x683.jpg'
     ]);
 }
 
