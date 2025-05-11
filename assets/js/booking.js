@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Remove fixed header behavior for contact page
+    // Remove fixed header behavior for booking page
     const header = document.querySelector('.main-header');
     header.style.position = 'relative';
     header.style.marginTop = '0';
     
     // Override existing scroll event with empty handler for this page
     // This prevents the header from changing position on scroll
-    window.addEventListener('scroll', function contactPageScrollHandler(e) {
+    window.addEventListener('scroll', function bookingPageScrollHandler(e) {
         // Keep header in place - override any other scroll behaviors
         header.classList.remove('scrolled', 'scroll-down', 'scroll-up');
         e.stopPropagation();
@@ -39,21 +39,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isMenuOpen && !e.target.closest('.nav-container')) {
             toggleMenu();
         }
-    });    // Initialize map
-    const map = L.map('map').setView([34.1072, -118.2566], 15);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Add custom marker
-    const marker = L.marker([34.1072, -118.2566]).addTo(map);
-    marker.bindPopup("<b>PSL3 Productions</b><br>2260 Allesandro St<br>Los Angeles, CA 90039").openPopup();
-    marker.bindPopup("<b>PSL3 Productions</b><br>Los Angeles, CA").openPopup();    // Form validation and submission
-    const contactForm = document.getElementById('contactForm');
-    const formInputs = contactForm.querySelectorAll('input, textarea, select');
+    });
+    
+    // Form validation and submission
+    const inquiryForm = document.getElementById('inquiryForm');
+    const formInputs = inquiryForm.querySelectorAll('input, textarea, select');
     const formStatus = document.getElementById('formStatus');
 
     function validateInput(input) {
+        // Skip checkbox validation here - they're handled separately
+        if (input.type === 'checkbox') {
+            return true;
+        }
+        
         const inputGroup = input.closest('.input-group');
         const errorMessage = inputGroup.querySelector('.error-message');
 
@@ -62,7 +60,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return true;
         }
 
-        if (!input.value.trim()) {
+        // Skip validation for non-required fields that are empty
+        if (!input.required && !input.value.trim()) {
+            inputGroup.classList.remove('error');
+            if (errorMessage) errorMessage.remove();
+            return true;
+        }
+
+        // Required field validation
+        if (input.required && !input.value.trim()) {
             inputGroup.classList.add('error');
             if (!errorMessage) {
                 const error = document.createElement('div');
@@ -73,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         }
 
+        // Email validation
         if (input.type === 'email' && !validateEmail(input.value)) {
             inputGroup.classList.add('error');
             if (!errorMessage) {
@@ -84,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         }
 
+        // Phone validation
         if (input.type === 'tel' && !validatePhone(input.value)) {
             inputGroup.classList.add('error');
             if (!errorMessage) {
@@ -95,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         }
         
+        // Date validation
         if (input.type === 'date' && !validateDate(input.value)) {
             inputGroup.classList.add('error');
             if (!errorMessage) {
@@ -104,12 +113,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 inputGroup.appendChild(error);
             }
             return false;
-        }        inputGroup.classList.remove('error');
+        }
+        
+        // Remove error if validation passes
+        inputGroup.classList.remove('error');
         inputGroup.classList.add('valid');
         if (errorMessage) {
             errorMessage.remove();
         }
         return true;
+    }
+
+    // Validate at least one event type is selected
+    function validateEventTypes() {
+        const checkboxes = document.querySelectorAll('input[name="eventType"]');
+        const container = document.getElementById('eventTypeContainer');
+        const errorMessage = container.querySelector('.error-message');
+        
+        let isChecked = false;
+        checkboxes.forEach(cb => {
+            if (cb.checked) isChecked = true;
+        });
+        
+        if (!isChecked) {
+            container.classList.add('error');
+            if (!errorMessage) {
+                const error = document.createElement('div');
+                error.className = 'error-message';
+                error.textContent = 'Please select at least one event type';
+                container.appendChild(error);
+            }
+            return false;
+        } else {
+            container.classList.remove('error');
+            if (errorMessage) errorMessage.remove();
+            return true;
+        }
     }
 
     function validateEmail(email) {
@@ -121,6 +160,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function validateDate(dateString) {
+        if (!dateString) return false;
+        
         const selectedDate = new Date(dateString);
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -140,17 +181,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (type === 'success') {
             setTimeout(() => {
                 formStatus.className = 'form-status';
-                contactForm.reset();
-            }, 5000);
+            }, 8000);
         }
     }
 
+    // Validate form inputs on blur and input events
     formInputs.forEach(input => {
+        // Skip checkbox event listeners - they're handled separately
+        if (input.type === 'checkbox') return;
+        
         input.addEventListener('blur', () => {
             input.dataset.validating = 'true';
             validateInput(input);
         });
-          input.addEventListener('input', () => {
+        
+        input.addEventListener('input', () => {
             if (input.dataset.validating === 'true') {
                 validateInput(input);
             }
@@ -173,23 +218,39 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+    
+    // Add event listeners to event type checkboxes
+    const eventTypeCheckboxes = document.querySelectorAll('input[name="eventType"]');
+    eventTypeCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', validateEventTypes);
+    });
 
-    contactForm.addEventListener('submit', async (e) => {
+    // Form submission handler
+    inquiryForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         let isValid = true;
+        
+        // Validate all form inputs
         formInputs.forEach(input => {
-            if (!validateInput(input)) {
+            // Skip checkboxes - they're handled separately
+            if (input.type !== 'checkbox' && !validateInput(input)) {
                 isValid = false;
             }
         });
+        
+        // Validate event type checkboxes
+        if (!validateEventTypes()) {
+            isValid = false;
+        }
 
         if (!isValid) return;
 
-        const submitBtn = contactForm.querySelector('.submit-btn');
+        const submitBtn = inquiryForm.querySelector('.submit-btn');
         const btnText = submitBtn.querySelector('.btn-text');
         const originalText = btnText.textContent;
-          // Show a nicer form submission animation
+        
+        // Show a nicer form submission animation
         submitBtn.disabled = true;
         btnText.textContent = 'Sending...';
         
@@ -199,10 +260,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Gather form data for simulated submission
-            const formData = new FormData(contactForm);
+            const formData = new FormData(inquiryForm);
             const formDataObj = {};
             formData.forEach((value, key) => {
-                formDataObj[key] = value;
+                // Handle multiple checkboxes with the same name
+                if (key === 'eventType') {
+                    if (!formDataObj[key]) formDataObj[key] = [];
+                    formDataObj[key].push(value);
+                } else {
+                    formDataObj[key] = value;
+                }
             });
             
             console.log('Form data to be submitted:', formDataObj);
@@ -211,15 +278,32 @@ document.addEventListener('DOMContentLoaded', () => {
             await new Promise(resolve => setTimeout(resolve, 2000));
             
             // Show success status
-            showFormStatus('success', 'Thank you for reaching out! Your message has been received. We will contact you shortly to discuss your event in detail.');
+            showFormStatus('success', 'Thank you for your inquiry! We\'ve received your details and will contact you shortly to discuss your event.');
             
             // Reset form fields with a delay to allow for visual feedback
             setTimeout(() => {
-                contactForm.reset();
+                inquiryForm.reset();
+                
+                // Reset validation states
+                formInputs.forEach(input => {
+                    const inputGroup = input.closest('.input-group');
+                    if (inputGroup) {
+                        inputGroup.classList.remove('error', 'valid', 'has-value');
+                        const errorMessage = inputGroup.querySelector('.error-message');
+                        if (errorMessage) errorMessage.remove();
+                    }
+                });
+                
+                // Reset event type validation
+                const eventTypeContainer = document.getElementById('eventTypeContainer');
+                eventTypeContainer.classList.remove('error');
+                const errorMessage = eventTypeContainer.querySelector('.error-message');
+                if (errorMessage) errorMessage.remove();
+                
             }, 500);
             
             // Update button to show success
-            btnText.textContent = 'Message Sent!';
+            btnText.textContent = 'Inquiry Sent!';
             btnIcon.className = 'fas fa-check';
             
             // Reset button after delay
@@ -233,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Form submission error:', error);
             
             // Show error status
-            showFormStatus('error', 'Something went wrong while sending your message. Please try again or contact us directly by phone.');
+            showFormStatus('error', 'Something went wrong while sending your inquiry. Please try again or contact us directly by phone.');
             
             // Update button to show error
             btnText.textContent = 'Error! Try Again';
@@ -248,36 +332,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // FAQ Accordion
-    const faqItems = document.querySelectorAll('.faq-item');
-
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        const answer = item.querySelector('.faq-answer');
-
-        question.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
-            
-            // Close all other FAQ items
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                    otherItem.querySelector('.faq-answer').style.maxHeight = '0';
-                }
-            });
-
-            // Toggle current item
-            item.classList.toggle('active');
-            if (!isActive) {
-                answer.style.maxHeight = answer.scrollHeight + 'px';
-            } else {
-                answer.style.maxHeight = '0';
-            }
-        });
-    });
-
     // Animate elements on scroll
-    const animateElements = document.querySelectorAll('.info-card, .contact-form-container, .faq-item');
+    const animateElements = document.querySelectorAll('.info-card, .inquiry-form-container, .testimonial-card');
     
     const observerOptions = {
         threshold: 0.1,

@@ -201,6 +201,7 @@ h4 { font-size: 20px; }
     align-items: center;
     padding: 120px 0 80px;
     overflow: hidden;
+    background-color: #000; /* Fallback color if images don't load */
 }
 
 .hero::before {
@@ -212,7 +213,8 @@ h4 { font-size: 20px; }
     bottom: 0;
     background: linear-gradient(
         to right,
-        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.75) 0%,
+        rgba(0, 0, 0, 0.6) 50%,
         rgba(0, 0, 0, 0.5) 100%
     );
     z-index: 1;
@@ -237,35 +239,56 @@ h4 { font-size: 20px; }
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out, transform 6s ease;
+    transform: scale(1.1);
+    z-index: 0; /* Ensure proper stacking */
 }
 
 .slide.active {
     opacity: 1;
+    transform: scale(1);
+    z-index: 1; /* Bring active slide to front */
+}
+
+/* Additional slider enhancements */
+.hero-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .slider-controls {
     position: absolute;
-    bottom: 20px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
 
 .slider-dot {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    border: none;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid #fff;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    padding: 0;
+    outline: none;
+}
+
+.slider-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
 }
 
 .slider-dot.active {
     background: #ffffff;
+    transform: scale(1.2);
 }
 
 .hero-content {
@@ -274,10 +297,12 @@ h4 { font-size: 20px; }
     max-width: 600px;
     margin-left: 10%;
     padding: 2.5rem;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.65);
     border-radius: 15px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .hero-content h1 {
@@ -285,6 +310,7 @@ h4 { font-size: 20px; }
     font-size: 2.5rem;
     margin-bottom: 1.2rem;
     line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-content p {
@@ -292,6 +318,18 @@ h4 { font-size: 20px; }
     font-size: 1.1rem;
     margin-bottom: 1.5rem;
     line-height: 1.6;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.hero-cta .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.hero-cta .btn-secondary:hover {
+    background: white;
+    color: black;
 }
 
 .slider-dots {

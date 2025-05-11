@@ -68,12 +68,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         header.classList.add('scrolled');
         lastScroll = currentScroll;
-    });
-
-    // Initialize hero slider
+    });    // Initialize hero slider
     const sliderContainer = document.querySelector('.hero-slider');
     if (sliderContainer) {
-        new ImageSlider(sliderContainer);
+        console.log("Found slider container:", sliderContainer);
+        setTimeout(() => {
+            try {
+                const slider = new ImageSlider(sliderContainer);
+                console.log("Slider initialized successfully");
+            } catch (error) {
+                console.error("Error initializing slider:", error);
+            }
+        }, 100); // Small delay to ensure DOM is fully ready
+    } else {
+        console.error("Could not find hero slider container");
     }
 });
 
@@ -81,47 +89,83 @@ document.addEventListener('DOMContentLoaded', () => {
 class ImageSlider {
     constructor(container) {
         this.container = container;
+        // Use absolute paths to ensure images load correctly
         this.images = [
             'assets/images/hero section.jpeg',
             'assets/images/Event img.jpeg'
         ];
         this.currentIndex = 0;
         this.interval = 5000; // 5 seconds per slide
+        this.intervalId = null;
+        this.isTransitioning = false;
+        
+        // Create a test image to verify loading
+        const testImage = new Image();
+        testImage.onload = () => console.log("Test image loaded successfully");
+        testImage.onerror = () => console.error("Failed to load test image");
+        testImage.src = this.images[0];
+        
         this.init();
-    }
+        
+        // Log status for debugging
+        console.log("Slider initialized with images:", this.images);
+    }    init() {
+        // Check if slides already exist in the container
+        const existingSlides = this.container.querySelectorAll('.slide');
+        const existingDots = this.container.querySelector('.slider-controls')?.querySelectorAll('.slider-dot');
+        
+        // If slides already exist in HTML, use them instead of creating new ones
+        if (existingSlides.length > 0) {
+            console.log("Using existing slides in the HTML");
+            
+            // Add click events to existing dots
+            if (existingDots && existingDots.length > 0) {
+                existingDots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                });
+            }
+        } else {
+            // Clear container and create new slides (fallback if HTML doesn't have slides)
+            console.log("Creating new slides dynamically");
+            this.container.innerHTML = '';
+            
+            // Create slides
+            this.images.forEach((image, index) => {
+                console.log("Creating slide with image:", image);
+                const slide = document.createElement('div');
+                slide.className = `slide ${index === 0 ? 'active' : ''}`;
+                slide.style.backgroundImage = `url(${image})`;
+                this.container.appendChild(slide);
+            });
 
-    init() {
-        // Clear container
-        this.container.innerHTML = '';
+            // Create dots
+            const dotsContainer = document.createElement('div');
+            dotsContainer.className = 'slider-controls';
+            
+            this.images.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.className = `slider-dot ${index === 0 ? 'active' : ''}`;
+                dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+                dot.addEventListener('click', () => this.goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+            
+            this.container.appendChild(dotsContainer);
+        }
         
-        // Create slides
-        this.images.forEach((image, index) => {
-            const slide = document.createElement('div');
-            slide.className = `slide ${index === 0 ? 'active' : ''}`;
-            slide.style.backgroundImage = `url(${image})`;
-            this.container.appendChild(slide);
-        });
-
-        // Create dots
-        const dotsContainer = document.createElement('div');
-        dotsContainer.className = 'slider-controls';
-        
-        this.images.forEach((_, index) => {
-            const dot = document.createElement('button');
-            dot.className = `slider-dot ${index === 0 ? 'active' : ''}`;
-            dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
-            dot.addEventListener('click', () => this.goToSlide(index));
-            dotsContainer.appendChild(dot);
-        });
-        
-        this.container.appendChild(dotsContainer);
+        // Add event listeners for pause on hover
+        this.container.addEventListener('mouseenter', () => this.pauseAutoSlide());
+        this.container.addEventListener('mouseleave', () => this.resumeAutoSlide());
         
         // Start automatic sliding
         this.startAutoSlide();
     }
 
     goToSlide(index) {
-        if (index === this.currentIndex) return;
+        if (index === this.currentIndex || this.isTransitioning) return;
+        
+        // Set transitioning flag
+        this.isTransitioning = true;
         
         // Update slides
         const slides = this.container.querySelectorAll('.slide');
@@ -134,6 +178,11 @@ class ImageSlider {
         dots[index].classList.add('active');
         
         this.currentIndex = index;
+        
+        // Reset transitioning flag after transition completes
+        setTimeout(() => {
+            this.isTransitioning = false;
+        }, 1000); // Match this to the CSS transition time
     }
 
     nextSlide() {
@@ -142,7 +191,20 @@ class ImageSlider {
     }
 
     startAutoSlide() {
-        setInterval(() => this.nextSlide(), this.interval);
+        this.intervalId = setInterval(() => this.nextSlide(), this.interval);
+    }
+    
+    pauseAutoSlide() {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+        }
+    }
+    
+    resumeAutoSlide() {
+        if (!this.intervalId) {
+            this.startAutoSlide();
+        }
     }
 }
 

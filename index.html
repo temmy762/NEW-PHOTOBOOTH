@@ -25,36 +25,37 @@
             <ul class="nav-links">                <li><a href="index.html">Home</a></li>
                 <li><a href="pages/services.html">Services</a></li>
                 <li><a href="pages/gallery.html">Gallery</a></li>
-                <li><a href="pages/booking.html">Inquire Today</a></li>
+                <!-- <li><a href="pages/booking.html">Inquire Today</a></li> -->
                 <li><a href="pages/contact.html">Contact</a></li>
                 <li class="cta-button"><a href="pages/booking.html" class="btn-primary">Inquire Today</a></li>
             </ul>
         </nav>
-    </header>
-
-    <main>
+    </header>    <main>
         <section class="hero">
             <div class="hero-content">
                 <h1>Capture the Moment. Keep the Memory.</h1>
-                <p>At PSL3 Productions, we provide state-of-the-art photo booth experiences that turn your event into unforgettable memories. Whether it's a wedding, birthday, or corporate event — our booths are built to impress.</p>
-                <div class="hero-cta">
-                    <a href="pages/booking.html" class="btn-primary">📸 Book Your Booth</a>
+                <p>At PSL3 Productions, we provide state-of-the-art photo booth experiences that turn your event into unforgettable memories. Whether it's a wedding, birthday, or corporate event — our booths are built to impress.</p>                <div class="hero-cta">
+                    <a href="pages/booking.html" class="btn-primary">📸 Inquire Today</a>
                     <a href="pages/services.html" class="btn-secondary">🎁 View Packages</a>
                 </div>
-            </div>
-            <div class="hero-slider">
+            </div>            <div class="hero-slider" id="hero-slider">
                 <!-- Slider content will be added via JavaScript -->
+                <!-- Backup static slides in case JS fails -->                <div class="slide active" style="background-image: url('assets/images/hero section img.jpeg'); background-size: cover; background-position: center;"></div>
+                <div class="slide" style="background-image: url('assets/images/Event img.jpeg'); background-size: cover; background-position: center;"></div>
+                <div class="slider-controls">
+                    <button class="slider-dot active" aria-label="Go to slide 1"></button>
+                    <button class="slider-dot" aria-label="Go to slide 2"></button>
+                </div>
             </div>
         </section>
 
         <section class="about-us">
             <div class="container">
                 <div class="about-grid">
-                    <div class="about-content">
-                        <h2>About PSL3 Productions</h2>
-                        <p class="subtitle">Creating Memories Since 2020</p>
-                        <p class="about-text">At PSL3 Productions, we believe that every moment deserves to be captured in its full glory. Our journey began with a simple mission: to transform ordinary events into extraordinary memories through state-of-the-art photo booth experiences.</p>
-                        <p class="about-text">What sets us apart is our commitment to quality, innovation, and customer satisfaction. Our photo booths combine cutting-edge technology with artistic flair, ensuring that every picture tells a story worth remembering.</p>
+                    <div class="about-content">                        <h2>About PSL3 Productions</h2>
+                        <p class="subtitle">Elevating Events Since 2020</p>
+                        <p class="about-text">PSL3 Productions is Southern California's premier provider of innovative photo and video experiences. We specialize in creating unforgettable interactive moments through our cutting-edge 360° video booths, professional DSLR photo stations, and custom-designed experiences for any event.</p>
+                        <p class="about-text">What sets us apart is our commitment to exceptional service and technological innovation. Each event receives our undivided attention with personalized planning, professional onsite staff, and high-end equipment that delivers magazine-quality photos and shareable videos that will wow your guests.</p>
                         <div class="about-stats">
                             <div class="stat-item">
                                 <span class="stat-number">500+</span>
@@ -155,50 +156,53 @@
 
         <section class="packages">
             <div class="container">
-                <h2>Our Photo Booth Packages</h2>
-                <div class="packages-grid">
-                    <div class="package-card">
-                        <h3>Basic Package</h3>
-                        <div class="price">Starting at $499</div>
+                <h2>Our Photo Booth Packages</h2>                <div class="packages-grid">                    <div class="package-card">                        
+                        <div class="package-header">
+                            <h3>Classic Experience</h3>
+                        </div>
                         <ul class="package-features">
-                            <li>2 Hours of Photo Booth Time</li>
-                            <li>Unlimited Photo Sessions</li>
-                            <li>Digital Gallery</li>
-                            <li>Basic Props Package</li>
-                            <li>On-site Attendant</li>
-                        </ul>
-                        <a href="pages/booking.html" class="btn-secondary">Book Now</a>
+                            <li><i class="fas fa-check"></i> 2 Hours of Service</li>
+                            <li><i class="fas fa-check"></i> Open-Air Photo Booth</li>
+                            <li><i class="fas fa-check"></i> Standard Backdrop</li>
+                            <li><i class="fas fa-check"></i> Unlimited Prints</li>
+                            <li><i class="fas fa-check"></i> Basic Props Package</li>
+                            <li><i class="fas fa-check"></i> Digital Gallery</li>
+                        </ul>                        <a href="pages/booking.html" class="btn-secondary">Inquire Today</a>
                     </div>
+
                     <div class="package-card featured">
-                        <div class="featured-tag">Most Popular</div>
-                        <h3>Premium Package</h3>
-                        <div class="price">Starting at $799</div>
+                        <div class="featured-tag">Most Popular</div>                        
+                        <div class="package-header">
+                            <h3>Premium Experience</h3>
+                        </div>
                         <ul class="package-features">
-                            <li>4 Hours of Photo Booth Time</li>
-                            <li>Unlimited Photo Sessions</li>
-                            <li>Digital Gallery + USB Drive</li>
-                            <li>Deluxe Props Package</li>
-                            <li>Custom Photo Template</li>
-                            <li>Social Media Sharing Station</li>
-                            <li>On-site Attendant</li>
+                            <li><i class="fas fa-check"></i> 3 Hours of Service</li>
+                            <li><i class="fas fa-check"></i> 360° Video Booth</li>
+                            <li><i class="fas fa-check"></i> Custom Backdrop</li>
+                            <li><i class="fas fa-check"></i> Unlimited Prints</li>
+                            <li><i class="fas fa-check"></i> Deluxe Props Package</li>
+                            <li><i class="fas fa-check"></i> Digital Gallery</li>
+                            <li><i class="fas fa-check"></i> Boomerang Videos</li>
+                            <li><i class="fas fa-check"></i> Social Media Sharing</li>
                         </ul>
-                        <a href="pages/booking.html" class="btn-primary">Book Now</a>
+                        <a href="pages/booking.html" class="btn-primary">Inquire Today</a>
                     </div>
-                    <div class="package-card">
-                        <h3>Luxury Package</h3>
-                        <div class="price">Starting at $999</div>
+
+                    <div class="package-card">                        
+                        <div class="package-header">
+                            <h3>Luxury Experience</h3>
+                        </div>
                         <ul class="package-features">
-                            <li>6 Hours of Photo Booth Time</li>
-                            <li>Unlimited Photo Sessions</li>
-                            <li>Digital Gallery + USB Drive</li>
-                            <li>Premium Props Package</li>
-                            <li>Custom Photo Template</li>
-                            <li>Social Media Sharing Station</li>
-                            <li>Guest Book Album</li>
-                            <li>Video Messages Feature</li>
-                            <li>On-site Attendant</li>
+                            <li><i class="fas fa-check"></i> 5 Hours of Service</li>
+                            <li><i class="fas fa-check"></i> 360° Video Booth + Standard Booth</li>
+                            <li><i class="fas fa-check"></i> Multiple Backdrop Options</li>
+                            <li><i class="fas fa-check"></i> Unlimited Prints</li>
+                            <li><i class="fas fa-check"></i> Premium Props</li>
+                            <li><i class="fas fa-check"></i> Cold Spark Effects</li>
+                            <li><i class="fas fa-check"></i> Guest Book</li>
+                            <li><i class="fas fa-check"></i> VIP Attendant</li>
                         </ul>
-                        <a href="pages/booking.html" class="btn-secondary">Book Now</a>
+                        <a href="pages/booking.html" class="btn-secondary">Inquire Today</a>
                     </div>
                 </div>
             </div>
@@ -271,10 +275,9 @@
         <section class="cta-section">
             <div class="container">
                 <h2>Ready to Make Your Event Unforgettable?</h2>
-                <p>Book your photo booth today and create lasting memories with PSL3 Productions!</p>
-                <div class="cta-buttons">
-                    <a href="pages/booking.html" class="btn-primary">Book Now</a>
-                    <a href="tel:5551234567" class="btn-secondary">Call Us</a>
+                <p>Book your photo booth today and create lasting memories with PSL3 Productions!</p>                <div class="cta-buttons">
+                    <a href="pages/booking.html" class="btn-primary">Inquire Today</a>
+                    <a href="tel:3104626096" class="btn-secondary">Call Us</a>
                 </div>
             </div>
         </section>
@@ -292,25 +295,23 @@
                     <li><a href="pages/booking.html">Booking</a></li>
                     <li><a href="pages/contact.html">Contact</a></li>
                 </ul>
-            </div>
-            <div class="footer-social">
+            </div>            <div class="footer-social">
                 <h4>Connect With Us</h4>                <div class="social-icons">
-                    <a href="#" aria-label="Instagram" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/psl3productions?igsh=NTc4MTIwNjQ2YQ==" aria-label="Instagram" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
                     <a href="#" aria-label="Facebook" class="social-icon"><i class="fab fa-facebook"></i></a>
-                    <a href="#" aria-label="TikTok" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.tiktok.com/@psl3productions?_t=ZT-8w1iz4Ow9N4&_r=1" aria-label="TikTok" class="social-icon" target="_blank"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
             <div class="footer-contact">
                 <h4>Contact Us</h4>
-                <p>Email: hello@psl3productions.com</p>
-                <p>Phone: (555) 123-4567</p>
+                <p>Email: pslopez@psl3productions.com</p>
+                <p>Phone: (310) 462-6096</p>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2025 PSL3 Productions. All rights reserved.</p>
         </div>
-    </footer>
-
-    <script src="assets/js/main.js"></script>
+    </footer>    <script src="assets/js/main.js"></script>
+    <script src="assets/js/hero-slider.js"></script>
 </body>
 </html>
